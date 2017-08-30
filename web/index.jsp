@@ -15,11 +15,11 @@
     <body>
         <%@include file="header.jsp" %>
         <div class="content">
-            <div class="section1">
-                <img src="images/heroillustration.jpg" width="50%" height="630" alt="heroillustration"/>
+            <div class="section1" style="float:left">
+                <img src="images/heroillustration.jpg" width="100%" height="630" alt="heroillustration"/>
             </div>
-            <div class="section2">
-                <%@include file="sign.jsp" %>
+            <div class="section2"  style="float:right">
+                <%@include file="SignUp.jsp" %>
             </div>
         </div>
         <%@include file="footer.jsp" %>

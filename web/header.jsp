@@ -4,6 +4,7 @@
     Author     : iamsu
 --%>
 
+<%@page import="com.ecomere.model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -32,6 +33,9 @@
                 font-size: 20px;
                 padding: 20px 90px 20px 90px;
             }
+            .section1,.section2{
+                width:45%;
+            }
             .footer{
                 width: 100%;
                 height: 50px;
@@ -46,13 +50,29 @@
     <body>
         <div class="header">
             <h1>E-commerce Online</h1>
+            <%
+                User user=(User)session.getAttribute("User");
+                try{
+            %>
             <nav>
                 <a href="#">Home</a> |
                 <a href="#">Home</a> |
-                <a href="#">Home</a> |
-                <a href="#">Home</a> |
-                <a href="#">Home</a> |
-                <a href="#">Home</a>
+                <a href="Category.do?m=ra">Category</a> |
+                <%
+                    if(user.getId()==0){
+                %>
+                    <a href="#">Sign Up</a> |
+                    <a href="#">Login</a>
+                <%
+                    }else{
+                    %>
+                        <a href="#">Hello <%=user.getFirstName()+" "+user.getLastName()%>!</a> |
+                        <a href="User?m=l">Logout</a>
+                    <%
+                    }
+                }catch(Exception e){
+                }
+                %>
             </nav>
         </div>
     </body>

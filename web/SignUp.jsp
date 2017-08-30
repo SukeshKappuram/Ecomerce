@@ -13,7 +13,7 @@
     </head>
     <body>
         <div>
-            <form method='post' action='User'>
+            <form method='post' action='User?m=r'>
             <fieldset>
                 <legend>Login</legend>
                 <table>
@@ -27,7 +27,7 @@
             </form>
             
             
-            <form method='post' action='User'>
+            <form method='post' action='User?m=c'>
             <fieldset>
                 <legend>Sign Up</legend>
                 <table>

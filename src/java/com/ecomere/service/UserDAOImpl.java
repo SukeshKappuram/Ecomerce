@@ -24,7 +24,7 @@ public class UserDAOImpl implements UserDAO{
     public int create(User u) {
         try{
             ds.setCon();
-            ds.setPs("insert into Users(firstName,lastName,mailId,gender,dob,phoneNumber,password) values(?,?,?,?,?,?,?)");
+            ds.setPs("insert into e_Users(id,firstName,lastName,mailId,gender,dob,phoneNumber,password) values(e_users_seq.NEXTVAL,?,?,?,?,?,?,?)");
             ds.getPs().setString(1, u.getFirstName());
             ds.getPs().setString(2, u.getLastName());
             ds.getPs().setString(3,u.getMailId());
@@ -46,7 +46,7 @@ public class UserDAOImpl implements UserDAO{
     public User read(User u) {
         try{
             ds.setCon();
-            ds.setPs("select * from Users where mailId=?");
+            ds.setPs("select * from e_Users where mailId=?");
             ds.getPs().setString(1,u.getMailId());
             ResultSet rs=ds.getPs().executeQuery();
             if(rs.next()){
@@ -70,7 +70,7 @@ public class UserDAOImpl implements UserDAO{
     public int update(User u) {
         try{
             ds.setCon();
-            ds.setPs("update users set password=? where id=?");
+            ds.setPs("update e_Users set password=? where id=?");
             ds.getPs().setString(1, u.getPassword());
             ds.getPs().setInt(2, u.getId());
             int i=ds.getPs().executeUpdate();
@@ -87,7 +87,7 @@ public class UserDAOImpl implements UserDAO{
     public int delete(User u) {
         try{
             ds.setCon();
-            ds.setPs("delete from Users where Id=?");
+            ds.setPs("delete from e_Users where Id=?");
             ds.getPs().setInt(1, u.getId());
             int i=ds.getPs().executeUpdate();
             ds.getCon().commit();

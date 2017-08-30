@@ -15,14 +15,17 @@ import java.sql.*;
 public class DataSource {
     private Connection con;
     private PreparedStatement ps; 
-    public static final String URL="jdbc:odbc:emc";
+    private static final String URL="jdbc:oracle:thin:@localhost:1521:XE";
+    private static final String USER="hr";
+    private static final String PASS="hr";
     
-    public Connection getCon() {
+    public Connection getCon() throws SQLException{
         return con;
     }
 
-    public void setCon() throws SQLException{
-        this.con = DriverManager.getConnection(URL);
+    public void setCon() throws SQLException, ClassNotFoundException{
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        this.con = DriverManager.getConnection(URL,USER,PASS);
     }
 
     public PreparedStatement getPs() {
