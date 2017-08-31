@@ -16,22 +16,29 @@
     <body>
         <%@include file="header.jsp" %>
         <div>
-            <form action="Category.do?m=c" method="post">
+            <form method="post">
                 <table>
                     <tr>
                         <td>
-                            <input type="text" name="name" placeholder="Category Name" />
+                            <input type="text" name="name" value="${Category.name}" placeholder="Category Name" />
+                            <input type="text" name="Id" value="${Category.id}" />
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <textarea name="description" rows="4" cols="20" placeholder="description">
+                                ${Category.description}
                             </textarea>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="submit" value="Add Category" />
+                            <c:if test="${empty Category}">
+                                <input type="submit" value="Add Category" formaction="Category.do?m=c"/>
+                            </c:if>
+                            <c:if test="${not empty Category}">
+                                <input type="submit" value="Update Category" formaction="Category.do?m=u"/>
+                            </c:if>
                         </td>
                     </tr>
                 </table>
@@ -44,19 +51,14 @@
                     <th>Category Description</th>
                     <th colspan="2">Manage</th>
                 </tr>
-                <%
-                    List<Category> categories=(List<Category>)session.getAttribute("categories");
-                    for(Category c:categories){
-                %>
+                <c:forEach var="c" items="${categories}">
                 <tr>
-                    <td><%=c.getName()%></td>
-                    <td><%=c.getDescription()%></td>
-                    <td>Edit</td>
-                    <td>Delete</td>
+                    <td>${c.name}</td>
+                    <td>${c.description}</td>
+                    <td><a href="Category.do?m=e&&id=${c.id}">Edit</a></td>
+                    <td><a href="Category.do?m=d&&id=${c.id}">Delete</a></td>
                 </tr>
-                <%
-                    }
-                %>
+                </c:forEach>
             </table>
         </div>
         <%@include file="footer.jsp" %>

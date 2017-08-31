@@ -38,18 +38,35 @@ public class CategoryController extends HttpServlet {
         PrintWriter out = response.getWriter();
         String reqPage=request.getHeader("referer");
         HttpSession session=request.getSession();
-        CategoryDAO cd=new CategoryDAOImpl();
+        CategoryDAO cd=new CategoryDAOImpl();int i=0;
         if(reqPage.contains("Ecomerce")){
-            String mode=request.getParameter("m");
-            if(mode.equals("c")){
+            String mode=request.getParameter("m");out.print(mode);
+            if(mode.equals("c") || mode.equals("u")){
                 String name=request.getParameter("name");
                 String description=request.getParameter("description");
                 Category c=new Category(name, description);
-                cd.createCategory(c);
-            }if(mode.equals("ra")){
-                session.setAttribute("categories", cd.getCategories());
+                if(mode.equals("c")){
+                    cd.createCategory(c);                    
+                }
+                try{    
+                    int id=Integer.parseInt(request.getParameter("Id"));
+                    c.setId(id);
+                    cd.updateCategory(c);
+                }catch(Exception e){out.print(e);}
+                session.setAttribute("Category",null);
+            }if(mode.equals("e")){
+                int id=Integer.parseInt(request.getParameter("id"));
+                Category c=new Category();
+                c.setId(id);
+                session.setAttribute("Category",cd.readCategory(c));
+            }if(mode.equals("d")){
+                int id=Integer.parseInt(request.getParameter("id"));
+                Category c=new Category();
+                c.setId(id);
+                cd.deleteCategory(c);
             }
-            response.sendRedirect("Category.jsp");
+            session.setAttribute("categories", cd.getCategories());
+            response.sendRedirect("Category.jsp?"+i);
         }
     }
 
